@@ -28,7 +28,7 @@ pipeline {
   post {
     success {
       script {
-        def slackToken = credentials('FEvW4LZaXDmqxvnzXPCGKbr7')
+        def slackToken = credentials('iISkceXTwfs4vOidfjNkDcL6')
         
         slackSend(
           color: '#36a64f',
