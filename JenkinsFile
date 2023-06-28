@@ -18,6 +18,12 @@ pipeline {
       steps {
         sh 'gradle build'
       }
+    stage('Deploy to Vercel') {
+      steps {
+        withCredentials([string(credentialsId: 'vercel-token', variable: 'VERCEL_TOKEN')]) {
+          sh 'vercel --prod --token $VERCEL_TOKEN'
+        }
+      }
     }
   }
   post {
