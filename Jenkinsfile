@@ -25,4 +25,18 @@ pipeline {
       }
     }
   }
+  post {
+    success {
+      script {
+        def slackToken = credentials('FEvW4LZaXDmqxvnzXPCGKbr7')
+        
+        slackSend(
+          color: '#36a64f',
+          message: "Pipeline deployed successfully!",
+          channel: '#firstnameip',
+          tokenCredentialId: slackToken
+        )
+      }
+    }
+  }
 }
