@@ -1,0 +1,36 @@
+pipeline {
+    agent any    
+  tools {
+    gradle "Gradle-6"
+  }
+  stages {
+    stage('Clone Repository') {
+      steps {
+        git url: 'https://github.com/kefahwambai/gallery'
+      }
+    }
+    stage('Initialize Gradle Build') {
+      steps {
+        sh 'gradle init'
+      }
+    }
+    stage('Build the Project') {
+      steps {
+        sh 'gradle build'
+      }
+    }
+  }
+  post {
+    success {
+      script {
+        def slackToken = credentials('FEvW4LZaXDmqxvnzXPCGKbr7')
+        
+        slackSend(
+          color: '#36a64f',
+          message: "Pipeline deployed successfully!",
+          channel: '#firstnameip',
+          tokenCredentialId: slackToken
+        )
+      }
+    }  
+}
