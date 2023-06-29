@@ -17,11 +17,12 @@ pipeline {
       steps {
         sh 'npm test'
       }
-    }
-
-    stage('deploy application') {
+    }   
+    stage('Deploy to Vercel') {
       steps {
-        echo 'run reployment'
+        withCredentials([string(credentialsId: 'Vercel', variable: 'VERCEL_TOKEN')]) {
+          sh 'vercel --prod --token $VERCEL_TOKEN'
+        }
       }
     }
   }
